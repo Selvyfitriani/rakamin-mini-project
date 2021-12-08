@@ -97,5 +97,17 @@ describe User do
         expect(user).to be(nil)
       end
     end
+
+    context 'when user is found' do
+      it 'should return not nil' do
+        user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        user.save
+
+        id = User.last_insert_id
+        searched_user = User.find_by_id(id)
+
+        expect(searched_user).not_to be(nil)
+      end
+    end
   end
 end
