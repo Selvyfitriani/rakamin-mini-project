@@ -27,5 +27,13 @@ describe User do
         expect(user.valid?).to eq(false)
       end
     end
+
+    context 'when initialize user with empty name' do
+      it 'should return false' do
+        user = User.new(username: 'selvyfitriani31', name: '')
+
+        expect(user.valid?).to eq(false)
+      end
+    end
   end
 end
