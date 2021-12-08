@@ -44,4 +44,14 @@ describe User do
       end
     end
   end
+
+  describe '#save' do
+    context 'when save invalid user' do
+      it 'should return false' do
+        user = User.new(username: '', name: '')
+
+        expect(user.save).to eq(false)
+      end
+    end
+  end
 end

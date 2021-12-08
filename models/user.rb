@@ -18,4 +18,8 @@ class User
   def valid_name?
     !@name.empty? && @name.length <= 50
   end
+
+  def save
+    return false unless valid?
+  end
 end
