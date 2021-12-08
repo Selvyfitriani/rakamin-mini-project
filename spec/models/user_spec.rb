@@ -1,9 +1,15 @@
+
 require 'spec_helper'
 require 'test_helper'
 require './database/db_connector'
 require './models/user'
 
 describe User do
+  before(:each) do
+    client = create_db_client
+    client.query('TRUNCATE users')
+  end
+
   describe '#valid?' do
     context 'when initialize valid user' do
       it 'should return true' do
@@ -60,13 +66,25 @@ describe User do
         user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
 
         dummy_db = double
-
         allow(Mysql2::Client).to receive(:new).and_return(dummy_db)
 
+        expect(dummy_db).to receive(:query).with('SELECT * FROM users ' \
+          "WHERE username='#{user.username}'")
         expect(dummy_db).to receive(:query).with('INSERT INTO users (username, name) ' \
           "VALUES ('#{user.username}', '#{user.name}')")
 
         user.save
+      end
+    end
+
+    context 'when save duplicate username' do
+      it 'should return false' do
+        user_one = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        user_two = User.new(username: 'selvyfitriani31', name: 'Selvy')
+
+        user_one.save
+
+        expect(user_two.save).to eq(false)
       end
     end
   end

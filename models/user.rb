@@ -22,8 +22,20 @@ class User
     !@name.empty? && @name.length <= 50
   end
 
+  def duplicate_username?
+    client = create_db_client
+
+    user = client.query("SELECT * FROM users WHERE username='#{@username}'")
+
+    !user.nil?
+  end
+
   def save
     return false unless valid?
+
+    if duplicate_username?
+      return false
+    end
 
     client = create_db_client
 
