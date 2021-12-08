@@ -88,4 +88,14 @@ describe User do
       end
     end
   end
+
+  describe 'find_by_id' do
+    context 'when user is not found' do
+      it 'should return nil' do
+        user = User.find_by_id(1)
+
+        expect(user).to be(nil)
+      end
+    end
+  end
 end

@@ -41,4 +41,8 @@ class User
 
     client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
   end
+
+  def self.find_by_id(id)
+    nil
+  end
 end
