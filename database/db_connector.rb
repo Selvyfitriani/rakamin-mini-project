@@ -1,4 +1,5 @@
 require 'mysql2'
+require './environment'
 
 def create_db_client
   Mysql2::Client.new(
