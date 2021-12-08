@@ -11,6 +11,6 @@ class User
   end
 
   def valid_username?
-    !@username.empty?
+    !@username.empty? && @username.length <= 30
   end
 end
