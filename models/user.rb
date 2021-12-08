@@ -16,6 +16,6 @@ class User
   end
 
   def valid_name?
-    !@name.empty?
+    !@name.empty? && @name.length <= 50
   end
 end

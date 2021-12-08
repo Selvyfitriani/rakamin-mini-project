@@ -35,5 +35,13 @@ describe User do
         expect(user.valid?).to eq(false)
       end
     end
+
+    context 'when initialize user with name length is out of bounds' do
+      it 'should return false' do
+        user = User.new(username: 'selvyfitriani31', name: 's' * 51)
+
+        expect(user.valid?).to eq(false)
+      end
+    end
   end
 end
