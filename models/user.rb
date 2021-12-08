@@ -1,4 +1,7 @@
 class User
+
+  attr_accessor :username, :name
+
   def initialize(username:, name:)
     @username = username
     @name = name
@@ -21,5 +24,9 @@ class User
 
   def save
     return false unless valid?
+
+    client = create_db_client
+
+    client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
   end
 end

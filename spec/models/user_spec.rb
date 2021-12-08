@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'test_helper'
+require './database/db_connector'
 require './models/user'
 
 describe User do
@@ -51,6 +52,21 @@ describe User do
         user = User.new(username: '', name: '')
 
         expect(user.save).to eq(false)
+      end
+    end
+
+    context 'when save valid user' do
+      it 'should save user to database' do
+        user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+
+        dummy_db = double
+
+        allow(Mysql2::Client).to receive(:new).and_return(dummy_db)
+
+        expect(dummy_db).to receive(:query).with('INSERT INTO users (username, name) ' \
+          "VALUES ('#{user.username}', '#{user.name}')")
+
+        user.save
       end
     end
   end
