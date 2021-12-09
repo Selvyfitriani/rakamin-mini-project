@@ -9,10 +9,10 @@ describe Message do
         sender.save
         receiver = User.new('selvyfitriani32', 'Selvy')
         receiver.save
-        conversation = Conversation.new(first_user: sender, second_user: receiver)
+        conversation = Conversation.new(sender, receiver)
         text = 'Hai'
 
-        message = Message.new(sender: sender, receiver: receiver, text: text, conversation: conversation)
+        message = Message.new(sender, receiver, text, conversation)
 
         expect(message.valid?).to be(true)
       end
@@ -21,10 +21,10 @@ describe Message do
     context 'when initialize message with invalid conversation' do
       it 'should return false' do
         sender = User.new('selvyfitriani31', 'Selvy Fitriani')
-        conversation = Conversation.new(first_user: sender, second_user: nil)
+        conversation = Conversation.new(sender, nil)
         text = 'Hai'
 
-        message = Message.new(sender: sender, receiver: nil, text: text, conversation: conversation)
+        message = Message.new(sender, nil, text, conversation)
 
         expect(message.valid?).to be(false)
       end
@@ -36,10 +36,10 @@ describe Message do
         sender.save
         receiver = User.new('selvyfitriani32', 'Selvy')
         receiver.save
-        conversation = Conversation.new(first_user: sender, second_user: receiver)
+        conversation = Conversation.new(sender, receiver)
         text = ''
 
-        message = Message.new(sender: sender, receiver: receiver, text: text, conversation: conversation)
+        message = Message.new(sender, receiver, text, conversation)
 
         expect(message.valid?).to be(false)
       end
@@ -51,10 +51,10 @@ describe Message do
         sender.save
         receiver = User.new('selvyfitriani32', 'Selvy')
         receiver.save
-        conversation = Conversation.new(first_user: sender, second_user: receiver)
+        conversation = Conversation.new(sender, receiver)
         text = nil
 
-        message = Message.new(sender: sender, receiver: receiver, text: text, conversation: conversation)
+        message = Message.new(sender, receiver, text, conversation)
 
         expect(message.valid?).to be(false)
       end
@@ -66,10 +66,10 @@ describe Message do
         sender.save
         receiver = User.new('selvyfitriani32', 'Selvy')
         receiver.save
-        conversation = Conversation.new(first_user: sender, second_user: receiver)
+        conversation = Conversation.new(sender, receiver)
         text = 'S' * 1001
 
-        message = Message.new(sender: sender, receiver: receiver, text: text, conversation: conversation)
+        message = Message.new(sender, receiver, text, conversation)
 
         expect(message.valid?).to be(false)
       end
@@ -79,7 +79,7 @@ describe Message do
   describe '#save' do
     context 'when save invalid message' do
       it 'should return false' do
-        message = Message.new(sender: nil, receiver: nil, text: nil, conversation: nil)
+        message = Message.new(nil, nil, nil, nil)
 
         expect(message.save).to be(false)
       end

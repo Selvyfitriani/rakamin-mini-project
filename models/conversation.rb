@@ -1,7 +1,7 @@
 require './models/user'
 
 class Conversation
-  def initialize(first_user:, second_user:)
+  def initialize(first_user, second_user)
     @first_user = first_user
     @second_user = second_user
   end

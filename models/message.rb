@@ -1,5 +1,5 @@
 class Message
-  def initialize(sender:, receiver:, text:, conversation:)
+  def initialize(sender, receiver, text, conversation)
     @sender = sender
     @receiver = receiver
     @conversation = conversation

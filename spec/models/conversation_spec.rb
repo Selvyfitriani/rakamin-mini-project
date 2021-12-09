@@ -18,7 +18,7 @@ describe Conversation do
         first_user.save
         second_user.save
 
-        conversation = Conversation.new(first_user: first_user, second_user: second_user)
+        conversation = Conversation.new(first_user, second_user)
 
         expect(conversation.valid?).to be(true)
       end
@@ -29,7 +29,7 @@ describe Conversation do
         second_user = User.new('selvyfitriani32', 'Selvy')
         second_user.save
 
-        conversation = Conversation.new(first_user: nil, second_user: second_user)
+        conversation = Conversation.new(nil, second_user)
 
         expect(conversation.valid?).to be(false)
       end
@@ -41,7 +41,7 @@ describe Conversation do
         second_user = User.new('selvyfitriani32', 'Selvy')
         second_user.save
 
-        conversation = Conversation.new(first_user: first_user, second_user: second_user)
+        conversation = Conversation.new(first_user, second_user)
 
         expect(conversation.valid?).to be(false)
       end
@@ -52,7 +52,7 @@ describe Conversation do
         first_user = User.new('selvyfitriani32', 'Selvy')
         first_user.save
 
-        conversation = Conversation.new(first_user: first_user, second_user: nil)
+        conversation = Conversation.new(first_user, nil)
 
         expect(conversation.valid?).to be(false)
       end
@@ -63,7 +63,7 @@ describe Conversation do
         user = User.new('selvyfitriani32', 'Selvy')
         user.save
 
-        conversation = Conversation.new(first_user: user, second_user: user)
+        conversation = Conversation.new(user, user)
 
         expect(conversation.valid?).to be(false)
       end
@@ -73,7 +73,7 @@ describe Conversation do
   describe '#save' do
     context 'when save invalid conversation' do
       it 'should return false' do
-        conversation = Conversation.new(first_user: nil, second_user: nil)
+        conversation = Conversation.new(nil, nil)
 
         expect(conversation.save).to be(false)
       end
