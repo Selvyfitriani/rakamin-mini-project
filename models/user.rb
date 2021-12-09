@@ -16,11 +16,13 @@ class User
 
   def valid_username?
     return false if @username.nil?
-    
+
     !@username.empty? && @username.length <= 30
   end
 
   def valid_name?
+    return false if @name.nil?
+
     !@name.empty? && @name.length <= 50
   end
 

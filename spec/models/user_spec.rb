@@ -45,6 +45,14 @@ describe User do
       end
     end
 
+    context 'when initialize user with nil name' do
+      it 'should return false' do
+        user = User.new(username: 'selvyfitriani31', name: nil)
+
+        expect(user.valid?).to eq(false)
+      end
+    end
+
     context 'when initialize user with empty name' do
       it 'should return false' do
         user = User.new(username: 'selvyfitriani31', name: '')
