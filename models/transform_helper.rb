@@ -22,4 +22,18 @@ class Transform
 
     id
   end
+
+  def self.to_conversations(raw_data)
+    conversations = []
+
+    raw_data.each do |datum|
+      first_user = User.find_by_id(datum['first_user_id'])
+      second_user = User.find_by_id(datum['second_user_id'])
+
+      conversation = Conversation.new(first_user, second_user, datum['id'])
+      conversations.push(conversation)
+    end
+
+    conversations
+  end
 end

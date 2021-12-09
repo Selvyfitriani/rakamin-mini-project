@@ -27,6 +27,17 @@ class Conversation
   end
 
   def save
-    false
+    return false unless valid?
+
+    client = create_db_client
+    client.query('INSERT INTO conversations(first_user_id, second_user_id) ' \
+      "VALUES (#{@first_user.id}, #{@second_user.id})")
+  end
+
+  def self.find_all
+    client = create_db_client
+    raw_data = client.query('SELECT * FROM conversations')
+
+    Transform.to_conversations(raw_data)
   end
 end

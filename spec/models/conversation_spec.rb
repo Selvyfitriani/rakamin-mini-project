@@ -7,6 +7,7 @@ describe Conversation do
     client = create_db_client
     client.query('SET FOREIGN_KEY_CHECKS = 0')
     client.query('TRUNCATE users')
+    client.query('TRUNCATE conversations')
     client.query('SET FOREIGN_KEY_CHECKS = 1')
   end
 
@@ -76,6 +77,23 @@ describe Conversation do
         conversation = Conversation.new(nil, nil)
 
         expect(conversation.save).to be(false)
+      end
+    end
+
+    context 'when save valid conversation' do
+      it 'should save conversation to database' do
+        first_user = User.new('selvyfitriani31', 'Selvy Fitriani')
+        second_user = User.new('selvyfitriani32', 'Selvy')
+        first_user.save
+        second_user.save
+
+        first_user = User.find_by_username(first_user.username)
+        second_user = User.find_by_username(second_user.username)
+
+        conversation = Conversation.new(first_user, second_user)
+        conversation.save
+
+        expect(Conversation.find_all.length).to equal(1)
       end
     end
   end
