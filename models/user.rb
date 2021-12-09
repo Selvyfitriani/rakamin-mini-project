@@ -37,9 +37,7 @@ class User
   def save
     return false unless valid?
 
-    if duplicate_username?
-      return false
-    end
+    return false if duplicate_username?
 
     client = create_db_client
 
