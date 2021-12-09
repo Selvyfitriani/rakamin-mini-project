@@ -14,6 +14,8 @@ class Message
   end
 
   def valid_text?
+    return false if @text.nil?
+
     !@text.empty?
   end
 end
