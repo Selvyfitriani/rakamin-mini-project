@@ -16,6 +16,6 @@ class Message
   def valid_text?
     return false if @text.nil?
 
-    !@text.empty?
+    !@text.empty? && @text.length <= 1000
   end
 end
