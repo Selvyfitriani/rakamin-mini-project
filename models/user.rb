@@ -41,7 +41,9 @@ class User
 
     client = create_db_client
 
-    client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
+    raw_data = client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
+
+    Transform.to_user(raw_data)
   end
 
   def self.find_by_id(id)
