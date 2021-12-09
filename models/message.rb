@@ -1,11 +1,12 @@
 class Message
-  def initialize(sender, receiver, text, conversation)
+  def initialize(sender, receiver, text, conversation, id = nil)
     @sender = sender
     @receiver = receiver
     @conversation = conversation
     @text = text
     @created_at = Time.now.strftime '%F %T'
     @status = 'UNREAD'
+    @id = id
   end
 
   def valid?

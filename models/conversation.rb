@@ -1,9 +1,10 @@
 require './models/user'
 
 class Conversation
-  def initialize(first_user, second_user)
+  def initialize(first_user, second_user, id = nil)
     @first_user = first_user
     @second_user = second_user
+    @id = id
   end
 
   def valid?
