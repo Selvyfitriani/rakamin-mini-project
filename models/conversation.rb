@@ -4,7 +4,13 @@ class Conversation
     @second_user = second_user
   end
 
-  def valid? 
-    return true
+  def valid?
+    valid_user?(@first_user)
+  end
+
+  def valid_user?(user)
+    return false if user.nil?
+
+    true
   end
 end
