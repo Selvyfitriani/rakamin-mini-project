@@ -45,6 +45,13 @@ class User
     client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
   end
 
+  def self.find_all
+    client = create_db_client
+    raw_data = client.query('SELECT * FROM users')
+
+    Transform.to_users(raw_data)
+  end
+
   def self.find_by_id(id)
     client = create_db_client
     raw_data = client.query("SELECT * FROM users WHERE id=#{id}")

@@ -82,16 +82,9 @@ describe User do
     context 'when save valid user' do
       it 'should save user to database' do
         user = User.new('selvyfitriani31', 'Selvy Fitriani')
-
-        dummy_db = double
-        allow(Mysql2::Client).to receive(:new).and_return(dummy_db)
-
-        expect(dummy_db).to receive(:query).with('SELECT * FROM users ' \
-          "WHERE username='#{user.username}'")
-        expect(dummy_db).to receive(:query).with('INSERT INTO users (username, name) ' \
-          "VALUES ('#{user.username}', '#{user.name}')")
-
         user.save
+
+        expect(User.find_all.length).to eq(1)
       end
     end
 

@@ -12,6 +12,19 @@ class Transform
     user
   end
 
+  def self.to_users(raw_data)
+    return nil if raw_data.nil?
+
+    users = []
+    raw_data.each do |datum|
+      user = User.new(datum['username'], datum['name'], datum['id'])
+
+      users.push(user)
+    end
+
+    users
+  end
+
   def self.to_id(raw_data)
     return nil if raw_data.nil?
     
