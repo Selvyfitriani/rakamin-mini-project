@@ -2,7 +2,7 @@ require './models/transform_helper'
 
 class User
 
-  attr_accessor :username, :name
+  attr_accessor :username, :name, :id
 
   def initialize(username, name, id = nil)
     @username = username
@@ -42,9 +42,7 @@ class User
 
     client = create_db_client
 
-    raw_data = client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
-
-    Transform.to_user(raw_data)
+    client.query("INSERT INTO users (username, name) VALUES ('#{@username}', '#{@name}')")
   end
 
   def self.find_by_id(id)
