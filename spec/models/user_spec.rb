@@ -21,7 +21,7 @@ describe User do
       end
     end
 
-    context 'when initialize user without username' do
+    context 'when initialize user with empty username' do
       it 'should return false' do
         user = User.new(username: '', name: 'Selvy Fitriani')
 
