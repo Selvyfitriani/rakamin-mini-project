@@ -96,5 +96,23 @@ describe Conversation do
         expect(Conversation.find_all.length).to equal(1)
       end
     end
+
+    context 'when save duplicate conversation' do
+      it 'should not save to database' do
+        first_user = User.new('selvyfitriani31', 'Selvy Fitriani')
+        second_user = User.new('selvyfitriani32', 'Selvy')
+        first_user.save
+        second_user.save
+
+        first_user = User.find_by_username(first_user.username)
+        second_user = User.find_by_username(second_user.username)
+
+        conversation = Conversation.new(first_user, second_user)
+        conversation.save
+        conversation.save
+
+        expect(Conversation.find_all.length).to equal(1)
+      end
+    end
   end
 end

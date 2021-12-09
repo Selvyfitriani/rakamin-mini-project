@@ -26,8 +26,21 @@ class Conversation
     true
   end
 
+  def duplicate?
+    client = create_db_client
+
+    raw_data = client.query('SELECT * FROM conversations ' \
+      "WHERE (first_user_id = #{@first_user.id} AND second_user_id=#{@second_user.id}) " \
+      "OR (second_user_id = #{@second_user.id} AND first_user_id=#{@second_user.id})")
+
+    conversations = Transform.to_conversations(raw_data)
+
+    conversations.length == 1
+  end
+
   def save
     return false unless valid?
+    return false if duplicate?
 
     client = create_db_client
     client.query('INSERT INTO conversations(first_user_id, second_user_id) ' \
