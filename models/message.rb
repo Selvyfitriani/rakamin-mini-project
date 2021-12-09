@@ -20,4 +20,8 @@ class Message
 
     !@text.empty? && @text.length <= 1000
   end
+
+  def save
+    false
+  end
 end

@@ -67,11 +67,21 @@ describe Message do
         receiver = User.new(username: 'selvyfitriani32', name: 'Selvy')
         receiver.save
         conversation = Conversation.new(first_user: sender, second_user: receiver)
-        text = 'S' * 1001 
+        text = 'S' * 1001
 
         message = Message.new(sender: sender, receiver: receiver, text: text, conversation: conversation)
 
         expect(message.valid?).to be(false)
+      end
+    end
+  end
+
+  describe '#save' do
+    context 'when save invalid message' do
+      it 'should return false' do
+        message = Message.new(sender: nil, receiver: nil, text: nil, conversation: nil)
+
+        expect(message.save).to be(false)
       end
     end
   end
