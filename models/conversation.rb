@@ -7,7 +7,7 @@ class Conversation
   end
 
   def valid?
-    valid_user?(@first_user)
+    valid_user?(@first_user) && valid_user?(@second_user)
   end
 
   def valid_user?(user)

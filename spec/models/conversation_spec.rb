@@ -46,5 +46,16 @@ describe Conversation do
         expect(conversation.valid?).to be(false)
       end
     end
+
+    context 'when initialize conversation without second user' do
+      it 'should return false' do
+        first_user = User.new(username: 'selvyfitriani32', name: 'Selvy')
+        first_user.save
+
+        conversation = Conversation.new(first_user: first_user, second_user: nil)
+
+        expect(conversation.valid?).to be(false)
+      end
+    end
   end
 end
