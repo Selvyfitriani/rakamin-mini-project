@@ -7,7 +7,9 @@ require './models/user'
 describe User do
   before(:each) do
     client = create_db_client
+    client.query('SET FOREIGN_KEY_CHECKS = 0')
     client.query('TRUNCATE users')
+    client.query('SET FOREIGN_KEY_CHECKS = 1')
   end
 
   describe '#valid?' do
