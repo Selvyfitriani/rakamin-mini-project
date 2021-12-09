@@ -1,3 +1,5 @@
+require './models/transform_helper'
+
 class User
 
   attr_accessor :username, :name
@@ -48,12 +50,7 @@ class User
     client = create_db_client
     raw_data = client.query("SELECT * FROM users WHERE id=#{id}")
 
-    user = nil
-    raw_data.each do |datum|
-      user = User.new(datum['username'], datum['name'])
-    end
-
-    user
+    Transform.to_user(raw_data)
   end
 
   def self.find_by_username(username)
@@ -62,23 +59,13 @@ class User
 
     return nil if raw_data.nil?
 
-    user = nil
-    raw_data.each do |datum|
-      user = User.new(datum['username'], datum['name'])
-    end
-
-    user
+    Transform.to_user(raw_data)
   end
 
   def self.last_insert_id
     client = create_db_client
     raw_data = client.query('SELECT MAX(id) as id FROM users')
 
-    id = 0
-    raw_data.each do |datum|
-      id = datum['id'].to_i
-    end
-
-    id
+    Transform.to_id(raw_data)
   end
 end
