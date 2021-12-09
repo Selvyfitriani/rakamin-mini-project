@@ -29,5 +29,20 @@ describe Message do
         expect(message.valid?).to be(false)
       end
     end
+
+    context 'when intialize message with empty text' do
+      it 'should return false' do
+        sender = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        sender.save
+        receiver = User.new(username: 'selvyfitriani32', name: 'Selvy')
+        receiver.save
+        conversation = Conversation.new(first_user: sender, second_user: receiver)
+        text = ''
+
+        message = Message.new(sender: sender, receiver: receiver, text: text, conversation: conversation)
+
+        expect(message.valid?).to be(false)
+      end
+    end
   end
 end
