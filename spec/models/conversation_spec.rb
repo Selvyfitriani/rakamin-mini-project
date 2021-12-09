@@ -34,5 +34,17 @@ describe Conversation do
         expect(conversation.valid?).to be(false)
       end
     end
+
+    context 'when initialize conversation with non-exist first user in database' do
+      it 'should return false' do
+        first_user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        second_user = User.new(username: 'selvyfitriani32', name: 'Selvy')
+        second_user.save
+
+        conversation = Conversation.new(first_user: first_user, second_user: second_user)
+
+        expect(conversation.valid?).to be(false)
+      end
+    end
   end
 end
