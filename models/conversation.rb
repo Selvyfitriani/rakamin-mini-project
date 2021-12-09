@@ -20,4 +20,8 @@ class Conversation
 
     true
   end
+
+  def save
+    false
+  end
 end

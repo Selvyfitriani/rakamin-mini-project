@@ -69,4 +69,14 @@ describe Conversation do
       end
     end
   end
+
+  describe '#save' do
+    context 'when save invalid conversation' do
+      it 'should return false' do
+        conversation = Conversation.new(first_user: nil, second_user: nil)
+
+        expect(conversation.save).to be(false)
+      end
+    end
+  end
 end
