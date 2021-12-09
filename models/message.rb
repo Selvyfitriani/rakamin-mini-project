@@ -4,6 +4,8 @@ class Message
     @receiver = receiver
     @conversation = conversation
     @text = text
+    @created_at = Time.now.strftime '%F %T'
+    @status = 'UNREAD'
   end
 
   def valid?
