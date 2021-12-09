@@ -4,9 +4,10 @@ class User
 
   attr_accessor :username, :name
 
-  def initialize(username, name)
+  def initialize(username, name, id = nil)
     @username = username
     @name = name
+    @id = id
   end
 
   def valid?

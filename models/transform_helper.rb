@@ -6,7 +6,7 @@ class Transform
 
     user = nil
     raw_data.each do |datum|
-      user = User.new(datum['username'], datum['name'])
+      user = User.new(datum['username'], datum['name'], datum['id'])
     end
 
     user
