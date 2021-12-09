@@ -57,5 +57,16 @@ describe Conversation do
         expect(conversation.valid?).to be(false)
       end
     end
+
+    context 'when initialize with twin users' do
+      it 'should return false' do
+        user = User.new(username: 'selvyfitriani32', name: 'Selvy')
+        user.save
+
+        conversation = Conversation.new(first_user: user, second_user: user)
+
+        expect(conversation.valid?).to be(false)
+      end
+    end
   end
 end

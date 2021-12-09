@@ -7,6 +7,8 @@ class Conversation
   end
 
   def valid?
+    return false if @first_user == @second_user
+
     valid_user?(@first_user) && valid_user?(@second_user)
   end
 
