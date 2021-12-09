@@ -2,7 +2,7 @@ class User
 
   attr_accessor :username, :name
 
-  def initialize(username:, name:)
+  def initialize(username, name)
     @username = username
     @name = name
   end
@@ -50,7 +50,7 @@ class User
 
     user = nil
     raw_data.each do |datum|
-      user = User.new(username: datum['username'], name: datum['name'])
+      user = User.new(datum['username'], datum['name'])
     end
 
     user
@@ -64,7 +64,7 @@ class User
 
     user = nil
     raw_data.each do |datum|
-      user = User.new(username: datum['username'], name: datum['name'])
+      user = User.new(datum['username'], datum['name'])
     end
 
     user

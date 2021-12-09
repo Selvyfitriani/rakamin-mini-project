@@ -15,7 +15,7 @@ describe User do
   describe '#valid?' do
     context 'when initialize valid user' do
       it 'should return true' do
-        user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        user = User.new('selvyfitriani31', 'Selvy Fitriani')
 
         expect(user.valid?).to eq(true)
       end
@@ -23,7 +23,7 @@ describe User do
 
     context 'when initialize user with nil username' do
       it 'should return false' do
-        user = User.new(username: nil, name: 'Selvy Fitriani')
+        user = User.new(nil, 'Selvy Fitriani')
 
         expect(user.valid?).to eq(false)
       end
@@ -31,7 +31,7 @@ describe User do
 
     context 'when initialize user with empty username' do
       it 'should return false' do
-        user = User.new(username: '', name: 'Selvy Fitriani')
+        user = User.new('', 'Selvy Fitriani')
 
         expect(user.valid?).to eq(false)
       end
@@ -39,7 +39,7 @@ describe User do
 
     context 'when initialize user with username length is out of bounds' do
       it 'should return false' do
-        user = User.new(username: 's' * 31, name: 'Selvy Fitriani')
+        user = User.new('s' * 31, 'Selvy Fitriani')
 
         expect(user.valid?).to eq(false)
       end
@@ -47,7 +47,7 @@ describe User do
 
     context 'when initialize user with nil name' do
       it 'should return false' do
-        user = User.new(username: 'selvyfitriani31', name: nil)
+        user = User.new('selvyfitriani31', nil)
 
         expect(user.valid?).to eq(false)
       end
@@ -55,7 +55,7 @@ describe User do
 
     context 'when initialize user with empty name' do
       it 'should return false' do
-        user = User.new(username: 'selvyfitriani31', name: '')
+        user = User.new('selvyfitriani31', '')
 
         expect(user.valid?).to eq(false)
       end
@@ -63,7 +63,7 @@ describe User do
 
     context 'when initialize user with name length is out of bounds' do
       it 'should return false' do
-        user = User.new(username: 'selvyfitriani31', name: 's' * 51)
+        user = User.new('selvyfitriani31', 's' * 51)
 
         expect(user.valid?).to eq(false)
       end
@@ -73,7 +73,7 @@ describe User do
   describe '#save' do
     context 'when save invalid user' do
       it 'should return false' do
-        user = User.new(username: '', name: '')
+        user = User.new('', '')
 
         expect(user.save).to eq(false)
       end
@@ -81,7 +81,7 @@ describe User do
 
     context 'when save valid user' do
       it 'should save user to database' do
-        user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        user = User.new('selvyfitriani31', 'Selvy Fitriani')
 
         dummy_db = double
         allow(Mysql2::Client).to receive(:new).and_return(dummy_db)
@@ -97,8 +97,8 @@ describe User do
 
     context 'when save duplicate username' do
       it 'should return false' do
-        user_one = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
-        user_two = User.new(username: 'selvyfitriani31', name: 'Selvy')
+        user_one = User.new('selvyfitriani31', 'Selvy Fitriani')
+        user_two = User.new('selvyfitriani31', 'Selvy')
 
         user_one.save
 
@@ -118,7 +118,7 @@ describe User do
 
     context 'when user is found' do
       it 'should return not nil' do
-        user = User.new(username: 'selvyfitriani31', name: 'Selvy Fitriani')
+        user = User.new('selvyfitriani31', 'Selvy Fitriani')
         user.save
 
         id = User.last_insert_id
