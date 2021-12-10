@@ -33,8 +33,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 2.1.4)
   mysql2 (~> 0.5.3)
-  rspec (~> 3.10)
+  rspec (~> 3.10.0)
   sinatra (~> 2.1.0)
 
 BUNDLED WITH
