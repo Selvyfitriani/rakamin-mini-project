@@ -7,7 +7,7 @@ class MessageController
     if params['sender_id'].nil? || params['receiver_id'].nil? ||
         params['conversation_id'].nil? || params['text'].nil?
 
-      return nil
+      return false
     end
 
     sender = User.find_by_id(params['sender_id'])
