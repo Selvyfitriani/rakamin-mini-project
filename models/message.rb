@@ -1,3 +1,5 @@
+require './database/db_connector'
+
 class Message
   def initialize(sender, receiver, text, conversation, created_at = nil, status = nil, id = nil)
     @sender = sender

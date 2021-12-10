@@ -1,3 +1,4 @@
+require './database/db_connector'
 require './models/user'
 
 class Conversation

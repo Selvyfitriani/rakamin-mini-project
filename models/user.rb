@@ -1,3 +1,6 @@
+
+
+require './database/db_connector'
 require './models/transform_helper'
 
 class User

@@ -1,3 +1,6 @@
+require 'spec_helper'
+require 'test_helper'
+require './database/db_connector'
 require './controllers/user_controller'
 
 describe UserController do

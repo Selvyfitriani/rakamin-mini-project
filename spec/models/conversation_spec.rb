@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'test_helper'
+require './database/db_connector'
 require './models/conversation'
 
 describe Conversation do

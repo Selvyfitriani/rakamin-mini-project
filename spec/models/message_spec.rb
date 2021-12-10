@@ -1,3 +1,6 @@
+require 'spec_helper'
+require 'test_helper'
+require './database/db_connector'
 require './models/message'
 require './models/conversation'
 
