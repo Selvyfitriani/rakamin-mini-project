@@ -15,7 +15,12 @@ class ConversationController
         response = ERB.new(File.read('./views/success_find_conversation.erb'))
       end
     end
-    
+
+    response.result(binding)
+  end
+
+  def find_all_conversation(params)
+    response = ERB.new(File.read('./views/failed_find_all_conversation.erb'))
     response.result(binding)
   end
 end

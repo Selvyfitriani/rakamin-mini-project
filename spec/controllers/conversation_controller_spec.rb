@@ -69,4 +69,21 @@ describe ConversationController do
       end
     end
   end
+
+  describe '#find_all_conversations' do
+    context 'when there is no conversation' do
+      it 'should return nil' do
+        user = User.new('selvyfitriani31', 'Selvy Fitriani')
+        user.save
+        user_id = User.last_insert_id
+
+        params = { 'user_id' => user_id }
+
+        controller = ConversationController.new
+        response = controller.find_all_conversation(params)
+        expected_response = ERB.new(File.read('./views/failed_find_all_conversation.erb')).result(binding)
+        expect(response).to eq(expected_response)
+      end
+    end
+  end
 end
