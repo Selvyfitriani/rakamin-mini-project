@@ -11,3 +11,8 @@ get '/users/find-conversation' do
   controller = ConversationController.new
   controller.find_conversation(params)
 end
+
+post '/users/reply' do
+  controller = UserController.new
+  controller.send_message(params)
+end
