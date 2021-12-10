@@ -37,5 +37,14 @@ class Message
     client.query('INSERT INTO messages' \
       '(sender_id, receiver_id, conversation_id, text) ' \
       "VALUES (#{@sender.id}, #{@receiver.id}, #{@conversation.id}, '#{@text}')")
+
+    true
+  end
+
+  def self.last_insert_id
+    client = create_db_client
+    raw_data = client.query('SELECT MAX(id) as id FROM messages')
+
+    Transform.to_id(raw_data)
   end
 end
