@@ -109,7 +109,6 @@ describe Conversation do
 
         conversation = Conversation.new(first_user, second_user)
         conversation.save
-        conversation.save
 
         expect(Conversation.find_all.length).to equal(1)
       end
