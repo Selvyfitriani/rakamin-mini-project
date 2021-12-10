@@ -1,7 +1,7 @@
 require './database/db_connector'
 
 class Message
-  attr_accessor :sender, :text, :created_at
+  attr_accessor :sender, :receiver, :text, :created_at
 
   def initialize(sender, receiver, text, conversation, created_at = nil, status = nil, id = nil)
     @sender = sender
@@ -60,6 +60,17 @@ class Message
       "WHERE conversation_id=#{conversation_id}")
 
     Transform.to_messages(raw_data)
+  end
+
+  def self.find_by_conversations(conversations)
+    list_messages = []
+
+    conversations.each do |conversation|
+      messages = Message.find_by_conversation_id(conversation.id)
+      list_messages.push(messages)
+    end
+
+    list_messages
   end
 end
 

@@ -7,12 +7,17 @@ post '/users/send-message' do
   controller.send_message(params)
 end
 
+post '/users/reply' do
+  controller = UserController.new
+  controller.send_message(params)
+end
+
 get '/users/find-conversation' do
   controller = ConversationController.new
   controller.find_conversation(params)
 end
 
-post '/users/reply' do
+get '/users/find-conversations' do
   controller = UserController.new
-  controller.send_message(params)
+  controller.find_all_conversation(params)
 end

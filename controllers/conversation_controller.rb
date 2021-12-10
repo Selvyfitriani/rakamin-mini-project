@@ -20,7 +20,21 @@ class ConversationController
   end
 
   def find_all_conversation(params)
-    response = ERB.new(File.read('./views/failed_find_all_conversation.erb'))
+    response = nil
+    list_messages = nil
+    
+    if params['user_id'].nil?
+      response = ERB.new(File.read('./views/failed_find_all_conversation.erb'))
+    else
+      conversations = Conversation.find_all_by_user_id(params['user_id'])
+
+      if conversations == []
+        response = ERB.new(File.read('./views/failed_find_all_conversation.erb'))
+      else
+        list_messages = Message.find_by_conversations(conversations)
+        response = ERB.new(File.read('./views/success_find_all_conversation.erb'))
+      end
+    end
     response.result(binding)
   end
 end

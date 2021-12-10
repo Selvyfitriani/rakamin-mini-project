@@ -85,5 +85,35 @@ describe ConversationController do
         expect(response).to eq(expected_response)
       end
     end
+
+    context 'when there are conversations' do
+      it 'should return all of the conversation' do
+        first_user = User.new('selvyfitriani31', 'Selvy Fitriani')
+        first_user.save
+        first_user_id = User.last_insert_id
+
+        second_user = User.new('selvyfitriani32', 'Selvy')
+        second_user.save
+        second_user_id = User.last_insert_id
+
+        message_params = {
+          'sender_id' => first_user_id,
+          'receiver_id' => second_user_id,
+          'text' => 'Hi'
+        }
+
+        user_controller = UserController.new
+        user_controller.send_message(message_params)
+        params = { 'user_id' => first_user_id }
+
+        conversations = Conversation.find_all_by_user_id(params['user_id'])
+        list_messages = Message.find_by_conversations(conversations)
+
+        controller = ConversationController.new
+        response = controller.find_all_conversation(params)
+        expected_response = ERB.new(File.read('./views/success_find_all_conversation.erb')).result(binding)
+        expect(response).to eq(expected_response)
+      end
+    end
   end
 end
