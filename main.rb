@@ -18,6 +18,6 @@ get '/users/find-conversation' do
 end
 
 get '/users/find-conversations' do
-  controller = UserController.new
+  controller = ConversationController.new
   controller.find_all_conversation(params)
 end
