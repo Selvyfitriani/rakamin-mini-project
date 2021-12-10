@@ -2,6 +2,15 @@ require './models/message'
 require './models/conversation'
 
 describe Message do
+  before(:each) do
+    client = create_db_client
+    client.query('SET FOREIGN_KEY_CHECKS = 0')
+    client.query('TRUNCATE users')
+    client.query('TRUNCATE conversations')
+    client.query('TRUNCATE messages')
+    client.query('SET FOREIGN_KEY_CHECKS = 1')
+  end
+
   describe '#valid?' do
     context 'when initialize valid message' do
       it 'should return true' do
@@ -25,6 +34,21 @@ describe Message do
         text = 'Hai'
 
         message = Message.new(sender, nil, text, conversation)
+
+        expect(message.valid?).to be(false)
+      end
+    end
+
+    context 'when initialize message with nil conversation' do
+      it 'should return false' do
+        sender = User.new('selvyfitriani31', 'Selvy Fitriani')
+        sender.save
+        receiver = User.new('selvyfitriani32', 'Selvy')
+        receiver.save
+
+        text = 'Hai'
+
+        message = Message.new(sender, receiver, text, nil)
 
         expect(message.valid?).to be(false)
       end

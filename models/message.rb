@@ -10,6 +10,7 @@ class Message
   end
 
   def valid?
+    return false if @conversation.nil?
     return false unless @conversation.valid?
     return false unless valid_text?
 
