@@ -46,5 +46,27 @@ describe ConversationController do
         expect(response).to eq(expected_response)
       end
     end
+
+    context 'when there is no conversation between 2 user' do
+      it 'should return nil' do
+        first_user = User.new('selvyfitriani31', 'Selvy Fitriani')
+        first_user.save
+        first_user_id = User.last_insert_id
+
+        second_user = User.new('selvyfitriani32', 'Selvy')
+        second_user.save
+        second_user_id = User.last_insert_id
+
+        params = {
+          'first_user_id' => first_user_id,
+          'second_user_id' => second_user_id,
+        }
+
+        controller = ConversationController.new
+        response = controller.find_conversation(params)
+        expected_response = ERB.new(File.read('./views/failed_find_conversation.erb')).result(binding)
+        expect(response).to eq(expected_response)
+      end
+    end
   end
 end
