@@ -38,14 +38,9 @@ describe UserController do
         receiver_id = User.last_insert_id
         receiver = User.find_by_id(receiver_id)
 
-        conversation = Conversation.new(sender, receiver)
-        conversation.save
-        conversation_id = Conversation.last_insert_id
-
         params = {
           'sender_id' => sender_id,
           'receiver_id' => receiver_id,
-          'conversation_id' => conversation_id,
           'text' => 'Hi'
         }
 
