@@ -115,4 +115,25 @@ describe Conversation do
       end
     end
   end
+
+  describe '#find_all_by_user_id' do
+    context 'when give user id' do
+      it 'should return all conversation by the id' do
+        first_user = User.new('selvyfitriani31', 'Selvy Fitriani')
+        second_user = User.new('selvyfitriani32', 'Selvy')
+        first_user.save
+        second_user.save
+
+        first_user = User.find_by_username(first_user.username)
+        second_user = User.find_by_username(second_user.username)
+
+        conversation = Conversation.new(first_user, second_user)
+        conversation.save
+
+        conversations = Conversation.find_all_by_user_id(first_user.id)
+
+        expect(conversations.length).to eq(1)
+      end
+    end
+  end
 end

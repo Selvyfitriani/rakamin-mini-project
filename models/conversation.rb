@@ -80,4 +80,13 @@ class Conversation
 
     Transform.to_conversation(raw_data)
   end
+
+  def self.find_all_by_user_id(user_id)
+    client = create_db_client
+    
+    raw_data = client.query('SELECT * FROM conversations ' \
+      "WHERE (first_user_id = #{user_id} OR second_user_id=#{user_id})")
+
+    Transform.to_conversations(raw_data)
+  end
 end
