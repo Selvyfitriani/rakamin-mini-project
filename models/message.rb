@@ -1,6 +1,8 @@
 require './database/db_connector'
 
 class Message
+  attr_accessor :sender, :text, :created_at
+
   def initialize(sender, receiver, text, conversation, created_at = nil, status = nil, id = nil)
     @sender = sender
     @receiver = receiver
@@ -51,4 +53,13 @@ class Message
 
     Transform.to_id(raw_data)
   end
+
+  def self.find_by_conversation_id(conversation_id)
+    client = create_db_client
+    raw_data = client.query('SELECT * FROM messages ' \
+      "WHERE conversation_id=#{conversation_id}")
+
+    Transform.to_messages(raw_data)
+  end
 end
+

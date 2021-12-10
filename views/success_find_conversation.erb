@@ -1,0 +1,12 @@
+{
+  'status_code' => '200',
+  'conversation' =>  
+  [
+    <% messages.each do |message| %>
+    {
+        'sender_id': <%= message.sender.id %>
+        'text': <%= message.text %>
+        'time': <%= message.created_at %>
+    } <% end %> 
+  ]
+}
