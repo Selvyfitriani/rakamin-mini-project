@@ -49,4 +49,37 @@ class Transform
 
     conversations
   end
+
+  def self.to_conversation(raw_data)
+    return nil if raw_data.nil?
+
+    conversation = nil
+    raw_data.each do |datum|
+      first_user = User.find_by_id(datum['first_user_id'])
+      second_user = User.find_by_id(datum['second_user_id'])
+
+      conversation = Conversation.new(first_user, second_user, datum['id'])
+    end
+
+    conversation
+  end
+
+  def self.to_messages(raw_data)
+    messages = []
+
+    raw_data.each do |datum|
+      sender = User.find_by_id(datum['sender_id'])
+      receiver = User.find_by_id(datum['receiver_id'])
+      conversation = Conversation.find_by_id(datum['conversation_id'])
+      text = datum['text']
+      created_at = datum['created_at']
+      status = datum['status']
+      id = datum['id']
+
+      message = Message.new(sender, receiver, text, conversation, created_at, status, id)
+      messages.push(message)
+    end
+
+    messages
+  end
 end

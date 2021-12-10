@@ -1,6 +1,8 @@
 require './models/user'
 
 class Conversation
+  attr_accessor :first_user, :second_user, :id
+
   def initialize(first_user, second_user, id = nil)
     @first_user = first_user
     @second_user = second_user
@@ -52,5 +54,19 @@ class Conversation
     raw_data = client.query('SELECT * FROM conversations')
 
     Transform.to_conversations(raw_data)
+  end
+
+  def self.find_by_id(id)
+    client = create_db_client
+    raw_data = client.query("SELECT * FROM conversations WHERE id=#{id}")
+
+    Transform.to_conversation(raw_data)
+  end
+
+  def self.last_insert_id
+    client = create_db_client
+    raw_data = client.query('SELECT MAX(id) as id FROM conversations')
+
+    Transform.to_id(raw_data)
   end
 end

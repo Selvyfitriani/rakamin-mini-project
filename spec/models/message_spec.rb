@@ -108,5 +108,29 @@ describe Message do
         expect(message.save).to be(false)
       end
     end
+
+    context 'when save valid message' do
+      it 'should save message to database' do
+        sender = User.new('selvyfitriani31', 'Selvy Fitriani')
+        sender.save
+        sender = User.find_by_username(sender.username)
+
+        receiver = User.new('selvyfitriani32', 'Selvy')
+        receiver.save
+        receiver = User.find_by_username(receiver.username)
+
+        conversation = Conversation.new(sender, receiver)
+        conversation.save
+        conversation_id = Conversation.last_insert_id
+        conversation = Conversation.find_by_id(conversation_id)
+
+        text = 'Hai'
+
+        message = Message.new(sender, receiver, text, conversation)
+        message.save
+
+        expect(Message.find_all.length).to eq(1)
+      end
+    end
   end
 end
